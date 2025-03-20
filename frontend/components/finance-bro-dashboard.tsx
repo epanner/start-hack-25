@@ -52,7 +52,7 @@ import { format } from "date-fns"
 // Add import for MeetingScheduler component
 import { MeetingScheduler } from "@/components/MeetingScheduler"
 
-export default function FinanceProDashboard() {
+export default function FinanceBroDashboard() {
   const isMobile = useIsMobile()
   const [activeTab, setActiveTab] = useState("insights")
   const [enlargedBox, setEnlargedBox] = useState<string | null>(null)
@@ -130,16 +130,9 @@ export default function FinanceProDashboard() {
     // In a real app, this would call an API to cancel the meeting
     console.log("Cancelling meeting at index:", index)
 
-    // Create a copy of the upcomingEvents array
-    const updatedEvents = [...clientData.upcomingEvents]
-    // Remove the event at the specified index
-    updatedEvents.splice(index, 1)
-    // Update the clientData with the new array
-    clientData.upcomingEvents = updatedEvents
-
-    // Force a re-render
-    setShowMeetingScheduler(false)
-    setTimeout(() => setShowMeetingScheduler(true), 10)
+    // For demo purposes, we'll just remove it from the client's upcoming events
+    // This is just for UI demonstration - in a real app, you'd update the backend
+    clientData.upcomingEvents = clientData.upcomingEvents.filter((_, i) => i !== index)
   }
 
   return (
@@ -163,7 +156,7 @@ export default function FinanceProDashboard() {
             <nav className="grid gap-2 text-lg font-medium">
               <a href="#" className="flex items-center gap-2 text-lg font-semibold">
                 <LineChart className="h-6 w-6" />
-                <span className="font-bold">FinancePro</span>
+                <span className="font-bold">FinanceBro</span>
               </a>
               <Separator className="my-2 dark:bg-slate-800 light:bg-slate-200" />
               <a
@@ -220,7 +213,7 @@ export default function FinanceProDashboard() {
         </Sheet>
         <a href="#" className="flex items-center gap-2 md:ml-0">
           <LineChart className="h-6 w-6 dark:text-white light:text-slate-900" />
-          <span className="font-bold hidden md:inline-block dark:text-white light:text-slate-900">FinancePro</span>
+          <span className="font-bold hidden md:inline-block dark:text-white light:text-slate-900">FinanceBro</span>
         </a>
 
         {/* SIX logo */}
@@ -236,7 +229,7 @@ export default function FinanceProDashboard() {
                 <Sparkles className="h-5 w-5 text-[#af2018]" />
               </div>
               <div className="w-full rounded-lg dark:bg-slate-800 dark:border-slate-700 light:bg-slate-100 light:border-slate-200 border py-2 pl-10 pr-4 dark:text-white light:text-slate-900">
-                Ask FinancePro anything about {clientData.name}...
+                Ask FinanceBro anything about {clientData.name}...
               </div>
             </div>
           </div>
@@ -513,7 +506,7 @@ export default function FinanceProDashboard() {
                 />
 
                 {/* Box 2: Calendar */}
-                <Card className="bg-slate-900 border-slate-800 text-white shadow-md flex flex-col">
+                <Card className="bg-slate-900 border-slate-800 text-white shadow-md">
                   <CardHeader className="pb-2 border-b border-slate-800">
                     <div className="flex items-start justify-between">
                       <div>
@@ -522,7 +515,7 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-3 px-3 flex-1">
+                  <CardContent className="pt-3 px-3">
                     <div className="space-y-3">
                       <div>
                         <h4 className="text-sm font-medium mb-2 text-[#af2018]">Recent Interactions</h4>
@@ -566,11 +559,11 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto">
+                  <CardFooter className="pt-0">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full bg-slate-800 border-slate-700 text-white hover:bg-slate-700"
+                      className="w-full dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:hover:bg-slate-700 light:bg-white light:border-slate-200 light:text-slate-900 light:hover:bg-slate-100"
                       onClick={() => setShowMeetingScheduler(true)}
                     >
                       Schedule Meeting
@@ -590,7 +583,7 @@ export default function FinanceProDashboard() {
               {/* Dynamic insights grid */}
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {/* Tile 1: Portfolio Performance */}
-                <Card className="bg-slate-800 border-slate-700 text-white flex flex-col">
+                <Card className="bg-slate-800 border-slate-700 text-white">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <div>
@@ -599,7 +592,7 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-white">YTD Performance</span>
@@ -625,7 +618,7 @@ export default function FinanceProDashboard() {
                             categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                             labels: {
                               style: {
-                                colors: "#94a3b8",
+                                colors: "hsl(var(--muted-foreground))",
                                 fontFamily: "var(--font-sans)",
                               },
                             },
@@ -634,7 +627,7 @@ export default function FinanceProDashboard() {
                             labels: {
                               formatter: (value) => `${value}%`,
                               style: {
-                                colors: "#94a3b8",
+                                colors: "hsl(var(--muted-foreground))",
                                 fontFamily: "var(--font-sans)",
                               },
                             },
@@ -643,19 +636,16 @@ export default function FinanceProDashboard() {
                             curve: "smooth",
                             width: 2,
                           },
-                          colors: ["#af2018", "#64748b"],
+                          colors: ["hsl(var(--primary))", "hsl(var(--muted-foreground))"],
                           tooltip: {
                             theme: "dark",
                           },
                           grid: {
-                            borderColor: "#334155",
+                            borderColor: "hsl(var(--border))",
                           },
                           legend: {
                             show: true,
                             position: "bottom",
-                            labels: {
-                              colors: "#f8fafc",
-                            },
                           },
                           theme: {
                             mode: "dark",
@@ -679,11 +669,11 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto">
+                  <CardFooter className="pt-0">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                      className="w-full dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:hover:bg-slate-600 light:bg-slate-100 light:border-slate-200 light:text-slate-900 light:hover:bg-slate-200"
                       onClick={() =>
                         handleActionButtonClick(
                           "Provide a detailed portfolio performance analysis for " +
@@ -700,7 +690,7 @@ export default function FinanceProDashboard() {
                 {/* Additional tiles would go here */}
                 {/* ... */}
                 {/* Tile 2: Risk Assessment */}
-                <Card className="bg-slate-800 border-slate-700 text-white flex flex-col">
+                <Card className="bg-slate-800 border-slate-700 text-white">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <div>
@@ -709,7 +699,7 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-white">Risk Profile</span>
@@ -730,7 +720,7 @@ export default function FinanceProDashboard() {
                             categories: ["Market", "Credit", "Liquidity", "Concentration", "Interest Rate"],
                             labels: {
                               style: {
-                                colors: "#94a3b8",
+                                colors: "hsl(var(--muted-foreground))",
                                 fontFamily: "var(--font-sans)",
                               },
                             },
@@ -747,7 +737,7 @@ export default function FinanceProDashboard() {
                           markers: {
                             size: 0,
                           },
-                          colors: ["#af2018", "#64748b"],
+                          colors: ["hsl(var(--primary))", "hsl(var(--muted-foreground))"],
                           tooltip: {
                             theme: "dark",
                           },
@@ -765,7 +755,7 @@ export default function FinanceProDashboard() {
                             data: [50, 45, 40, 50, 40],
                           },
                         ]}
-                        height={240}
+                        height={180}
                       />
                       <div className="text-sm text-slate-400">
                         Your technology sector concentration ({clientData.sectors.technology}%) is higher than
@@ -773,11 +763,11 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto">
+                  <CardFooter className="pt-0">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                      className="w-full dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:hover:bg-slate-600 light:bg-slate-100 light:border-slate-200 light:text-slate-900 light:hover:bg-slate-200"
                       onClick={() =>
                         handleActionButtonClick(
                           "Generate a comprehensive risk mitigation plan for " +
@@ -792,7 +782,7 @@ export default function FinanceProDashboard() {
                 </Card>
 
                 {/* Tile 3: Tax Optimization */}
-                <Card className="bg-slate-800 border-slate-700 text-white flex flex-col">
+                <Card className="bg-slate-800 border-slate-700 text-white">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <div>
@@ -801,7 +791,7 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-white">Tax Bracket</span>
@@ -836,11 +826,11 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto">
+                  <CardFooter className="pt-0">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                      className="w-full dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:hover:bg-slate-600 light:bg-slate-100 light:border-slate-200 light:text-slate-900 light:hover:bg-slate-200"
                       onClick={() =>
                         handleActionButtonClick(
                           "Create a detailed tax optimization strategy for " +
@@ -855,7 +845,7 @@ export default function FinanceProDashboard() {
                 </Card>
 
                 {/* Tile 4: Retirement Planning */}
-                <Card className="bg-slate-800 border-slate-700 text-white flex flex-col">
+                <Card className="bg-slate-800 border-slate-700 text-white">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <div>
@@ -864,7 +854,7 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-white">Retirement Goal</span>
@@ -941,11 +931,11 @@ export default function FinanceProDashboard() {
                       />
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto">
+                  <CardFooter className="pt-0">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                      className="w-full dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:hover:bg-slate-600 light:bg-slate-100 light:border-slate-200 light:text-slate-900 light:hover:bg-slate-200"
                       onClick={() =>
                         handleActionButtonClick(
                           "Analyze and adjust the retirement plan for " +
@@ -960,7 +950,7 @@ export default function FinanceProDashboard() {
                 </Card>
 
                 {/* Tile 5: Investment Opportunities */}
-                <Card className="bg-slate-800 border-slate-700 text-white flex flex-col">
+                <Card className="bg-slate-800 border-slate-700 text-white">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <div>
@@ -971,7 +961,7 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <div className="space-y-4">
                       <div className="rounded-md bg-slate-700 p-3">
                         <h4 className="text-sm font-medium mb-1 text-white">Top Opportunities:</h4>
@@ -1026,11 +1016,11 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto">
+                  <CardFooter className="pt-0">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                      className="w-full dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:hover:bg-slate-600 light:bg-slate-100 light:border-slate-200 light:text-slate-900 light:hover:bg-slate-200"
                       onClick={() =>
                         handleActionButtonClick(
                           "Create a detailed investment plan for " +
@@ -1045,7 +1035,7 @@ export default function FinanceProDashboard() {
                 </Card>
 
                 {/* Tile 6: Market Insights */}
-                <Card className="bg-slate-800 border-slate-700 text-white flex flex-col">
+                <Card className="bg-slate-800 border-slate-700 text-white">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <div>
@@ -1056,7 +1046,7 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <div className="space-y-4">
                       <div className="grid grid-cols-2 gap-2">
                         <div className="rounded-md border border-slate-700 bg-slate-800 p-2">
@@ -1114,11 +1104,11 @@ export default function FinanceProDashboard() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto">
+                  <CardFooter className="pt-0">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                      className="w-full dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:hover:bg-slate-600 light:bg-slate-100 light:border-slate-200 light:text-slate-900 light:hover:bg-slate-200"
                       onClick={() =>
                         handleActionButtonClick(
                           "Generate a comprehensive market report with analysis of how current conditions impact " +

@@ -77,6 +77,22 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      components: {
+        calendar: {
+          day: {
+            default: "dark:text-white dark:hover:bg-slate-700",
+            today: "dark:bg-slate-700 dark:text-white",
+            selected: "dark:bg-[#af2018] dark:text-white",
+          },
+          nav: {
+            button: "dark:hover:bg-slate-700 dark:text-white",
+          },
+          caption: "dark:text-white",
+          head: {
+            cell: "dark:text-slate-400",
+          },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
