@@ -59,4 +59,4 @@ if __name__ == "__main__":
     
     
     print("Response from get_response:")
-    print(json.dumps(result, indent=2))
+    print(json.loads(result["object"]))

@@ -1,91 +1,79 @@
-# Wealth AU - Financial Data Insight Platform
+# <p align="center"> Innovative Human-AI Interaction for Financial Data Insight </p>
 
-This project is part of the START Hack 2025 challenge, focusing on innovative human-AI interaction for financial data insights. The platform aims to provide wealth managers, portfolio managers, and financial analysts with real-time, user-friendly access to financial insights through various interactive methods.
+![Image_Github1](https://github.com/user-attachments/assets/3055e359-05a4-42dc-ac6b-e227338ed49c)
 
-## Features
+# <p align="center"> Who are we? </p>
+![Image_Github2](https://github.com/user-attachments/assets/c6f73707-3881-4e26-b60b-aad595c78d69)
+![image](https://github.com/user-attachments/assets/58f10287-4807-4ad5-9c48-f2fe02038f9c)
 
-- Real-time financial data analysis
-- News aggregation and analysis
-- Client data processing
-- RAG (Retrieval-Augmented Generation) implementation
-- API integration with financial data services
 
-## Prerequisites
 
-- Python 3.8 or higher
-- pip (Python package installer)
 
-## Installation
+## <p align="center"> Case Introduction: </p>
+As the financial industry increasingly integrates artificial intelligence into its services, the challenge remains to enhance human-AI interaction in a way that makes financial data insights more intuitive and actionable. SIX is in the process of developing its own AI-driven financial chatbot, aiming to provide wealth managers, portfolio managers, and financial analysts with real-time, user-friendly access to financial insights. However, traditional text-based question-and-answer systems may not fully exploit the potential of AI in this space.
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd start-hack-25
-```
+The current problem lies in improving the way financial professionals interact with AI to extract valuable insights. The goal is to design innovative, multimodal interaction methods that go beyond standard chatbot interfaces and provide a seamless, efficient, and interactive experience.
 
-2. Create a virtual environment (recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
 
-3. Install the required dependencies:
-```bash
-pip install -r requirements.txt
-```
+## <p align="center"> Expected Outcome: </p>
+Participants in this case challenge are tasked with exploring novel ways to improve human-AI interaction in financial data analysis. Solutions may incorporate voice-based interactions, visual dashboards, bilateral communication tools, or multimodal interfaces that provide a more dynamic and engaging experience.
 
-## Project Structure
+At a minimum, teams are expected to develop clickable mockups that demonstrate unique and innovative ideas for AI integration. Ideally, they should connect their application to a working large language model (LLM) capable of processing real-time financial data.
 
-- `api_test.py` - API testing module
-- `clients_data.csv` - Sample client data
-- `newAPI_newspaper3k.py` - News API integration
-- `newsAPI_test.py` - News API testing
-- `parse_client.py` - Client data parsing
-- `rag_test.py` - RAG implementation testing
-- `search_from_data.py` - Data search functionality
 
-## Usage
+## <p align="center"> The Pitch: </p>
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=7A9EtcrO744" target="_blank">Pitch Video</a>
+</p>
 
-1. Ensure you have activated your virtual environment
-2. Run the desired script based on your needs:
+## <p align="center"> Deep Dive Slides: </p>
+<p align="center">
+  <a href="https://github.com/user-attachments/files/19319731/STARTHack_SIX_Case_DeepDiveSlides.2.pdf" target="_blank">SIX Deep Dive Slides</a>
+</p>
 
-```bash
-# For API testing
-python api_test.py
+API: https://idchat-api-containerapp01-dev.orangepebble-16234c4b.switzerlandnorth.azurecontainerapps.io/docs
 
-# For news analysis
-python newAPI_newspaper3k.py
+## <p align="center"> Judging Criteria: </p>
+●	Creativity & Innovation (30%) - out of box thinking and innovative use of technology 
 
-# For client data processing
-python parse_client.py
+●	Viability (20%) - Possibility of realizing the solution
 
-# For RAG testing
-python rag_test.py
+●	Feasibility (10%) - Maturity level of developed solution
 
-# For data search
-python search_from_data.py
-```
+●	Presentation (20%) - Communication of the developed solution
 
-## API Integration
+●	Design (20%) - Usability of the solution
 
-The project uses the following API endpoint:
-```
-https://idchat-api-containerapp01-dev.orangepebble-16234c4b.switzerlandnorth.azurecontainerapps.io/docs
-```
 
-## Dependencies
 
-- requests
-- newspaper3k
-- beautifulsoup4
-- pandas
-- huggingface_hub
-- lxml[html_clean]
+## <p align="center"> Point of Contact: </p>
+<p =align="center">
+<table border="0">
+<tr>
+  <td align="center"><img src="https://github.com/START-Hack/SIX_STARTHACK24/assets/128060007/9069e726-510a-40f1-a6f2-0a5694f5fb2f" width="220" height="240"/> </td>
+  <td align="center"><img src="https://github.com/user-attachments/assets/9a6374e0-4f6e-4f2a-936d-b6dcc4085701" width="220" height="240"/> </td>
+  <td align="center"><img src="https://github.com/user-attachments/assets/d8884d30-0370-4106-98a2-356479b7d6d0" width="220" height="240"/> </td>
+  <td align="center"><img src="https://github.com/user-attachments/assets/155519c4-608d-414d-9d1a-665c770f4348" width="220" height="240"/> </td>
+</tr>
+<tr>
+  <td align="center">Jennifer Chang</td>
+  <td align="center">David de Lame</td>
+  <td align="center">Guillermo Fajardo Calvache</td>
+  <td align="center">Marin Puscaric</td>
+</tr>
+</table>
+</p>
+<p align="center"> David De Lame, Jennifer Chang, Guillermo Fajardo Calvache and Marin Puscaric will be glad to answer your questions during the Deep Dive. </p>
 
-## Contributing
 
-This project is part of the START Hack 2025 challenge. Please refer to the problem statement for more details about the challenge and judging criteria.
+## <p align="center"> Prize - the winning team members will each receive: </p>
+•	Digitec Voucher worth of CHF 300 per Person
 
-## License
+• One Gold Bar (1g) per Person
 
-This project is part of the START Hack 2025 challenge and is subject to the challenge's terms and conditions. 
+•	SIX Goodie bag
+
+•	Pitch to the SIX Financial Information CEO
+
+•	Team activity: Museum Escape Room: Crime & Wine (<a href="https://youtu.be/mR3AJkRB2HE" target="_blank">Click here</a>)
+
