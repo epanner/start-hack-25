@@ -87,7 +87,7 @@ def main():
     SERPAPI_API_KEY = "8dc6eb772730a964728c52eb9a2396a524af8a7a06f9192171a02dbf839cb773"  # Replace with your SerpAPI key
 
     # Perform a news search for Nvidia stock decline
-    query = "Nvidia stock decline latest news"
+    query = "APPL stock news"
     news_articles = search_news(query, SERPAPI_API_KEY, num_results=5)
 
     if news_articles:
