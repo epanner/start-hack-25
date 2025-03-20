@@ -34,7 +34,7 @@ def search_news(query, serpapi_api_key):
 
 def main():
     # Set your API keys here:
-    HF_TOKEN = "Select_hf_key"                 # Replace with your Hugging Face token
+    HF_TOKEN = "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"                 # Replace with your Hugging Face token
 
     # Perform a news search for Nvidia stock decline
     query = "Nvidia stock decline latest news"

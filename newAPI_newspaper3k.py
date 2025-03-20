@@ -67,7 +67,7 @@ def extract_article(url):
 
 def newspaper_parser(query):
     # Set your API key here:
-    SERPAPI_API_KEY = "select_key"  # Replace with your SerpAPI key
+    SERPAPI_API_KEY = "8dc6eb772730a964728c52eb9a2396a524af8a7a06f9192171a02dbf839cb773"  # Replace with your SerpAPI key
 
     # Perform a news search for the given query
     news_articles = search_news(query, SERPAPI_API_KEY, num_results=5)
