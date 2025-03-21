@@ -1,6 +1,6 @@
 # FinancePro 🏦
 
-## START GLOBAL Hackathon 2025
+## START GLOBAL Hackathon 2025 (St. Gallen, Switzerland)
 
 **Stop Searching, Start Finding.**
 
