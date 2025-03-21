@@ -62,7 +62,6 @@ class PerplexityChat:
         if response.status_code == 200:
             return response.json()
         else:
-            print("Error:", response.status_code, response.text)
             return None
 
     def get_history(self) -> list:

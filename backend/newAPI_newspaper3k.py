@@ -48,7 +48,6 @@ def search_news(query, serpapi_api_key, num_results=5):
         return None
 
     except requests.exceptions.RequestException as e:
-        logging.error(f"Error fetching news: {e}")
         return None
 
 def extract_article(url):
@@ -62,7 +61,6 @@ def extract_article(url):
         article.parse()
         return article.text if article.text else "No article content found."
     except Exception as e:
-        logging.error(f"Error extracting article: {e}")
         return "Error retrieving article."
 
 def newspaper_parser(query):

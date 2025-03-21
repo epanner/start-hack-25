@@ -46,7 +46,6 @@ def perplexity_chat(query: str):
     if response.status_code == 200:
         return response.json()
     else:
-        print("Error:", response.status_code, response.text)
         return None
 
 def parse_perplexity_message(message: str):

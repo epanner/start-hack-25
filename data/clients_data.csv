@@ -1,0 +1,6 @@
+ClientID,Name,LastCallDate,Vibes,NextAppointedMeeting,ActualPerformanceHistory,ExpectedPerformanceHistory,StressLevel,PreferredStocks
+1,John Doe,2025-03-15,Positive,2025-03-25,"[12, 11, 10, 12]","[8, 9, 8, 10]",Low,"AAPL, MSFT, TSLA"
+2,Jane Smith,2025-03-10,Neutral,2025-03-20,"[8, 9, 8, 10]","[9, 9, 9, 9]",Medium,"GOOGL, AMZN, FB"
+3,Robert Brown,2025-03-12,Negative,2025-03-22,"[-5, -4, 0, 2]","[5, 5, 3, 5]",High,"JPM, V, MA"
+4,Linda White,2025-03-18,Positive,2025-03-28,"[15, 16, 14, 15]","[12, 12, 12, 12]",Low,"NFLX, NVDA"
+5,Emily Davis,2025-03-14,Neutral,2025-03-24,"[3, 2, 4, 3]","[4, 4, 4, 4]",Low,"IBM, ORCL"

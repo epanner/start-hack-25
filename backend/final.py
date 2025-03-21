@@ -33,7 +33,6 @@ def perplexity_chat(query: str):
     if response.status_code == 200:
         return response.json()
     else:
-        print("Error:", response.status_code, response.text)
         return None
 
 def parse_perplexity_message(message: str):
@@ -127,7 +126,6 @@ class PerplexityChat:
         if response.status_code == 200:
             return response.json()
         else:
-            print("Error:", response.status_code, response.text)
             return None
 
     def get_history(self):
@@ -158,11 +156,8 @@ client_data["PreferredStocks"] = stocks
 
 stocks_info = {}
 for i, stock in enumerate(stocks):
-    print("hi")
     # api_data = json.loads(summary(stock)["object"])
-    print("hello")
     web_data = newspaper_parser(stock)
-    print("bye")
     stocks_info[stock] = {"web": web_data}
 client_data["StocksInfo"] = stocks_info
 
