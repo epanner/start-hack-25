@@ -3,6 +3,7 @@ from ast import literal_eval
 from api_test import *
 from newAPI_newspaper3k import newspaper_parser
 import openai
+import os
 
 import requests
 import json
@@ -113,78 +114,79 @@ def get_actions(prompt: str):
         print("No valid response received from the API.")
         return None
 
-# --- Load and process the CSV data ---
-df = pd.read_csv('clients_data.csv')
+    
 
-# Parse the performance history arrays stored as JSON-like strings
-df['ActualPerformanceHistory'] = df['ActualPerformanceHistory'].apply(literal_eval)
-df['ExpectedPerformanceHistory'] = df['ExpectedPerformanceHistory'].apply(literal_eval)
+def init_model(client_name):
+    file_path = os.path.join("data", "clients_data.csv")
+    df = pd.read_csv(file_path)
 
-# Process each client individually
-clients_analysis = []
-row = df.iloc[0]
+    # Filter for the specified client
+    client_df = df[df['Name'] == client_name]
 
-client_data = {
-    "ClientID": row["ClientID"],
-    "Name": row["Name"],
-    "LastCallDate": row["LastCallDate"],
-    "Vibes": row["Vibes"],
-    "NextAppointedMeeting": row["NextAppointedMeeting"],
-    "ActualPerformanceHistory": row["ActualPerformanceHistory"],
-    "ExpectedPerformanceHistory": row["ExpectedPerformanceHistory"],
-    "StressLevel": row["StressLevel"],
-}
-print("27")
+    # Ensure we found the client
+    if client_df.empty:
+        raise ValueError(f"Client '{client_name}' not found in the dataset.")
 
-# Split and clean the list of preferred stocks
-stocks = [s.strip() for s in row["PreferredStocks"].split(',')]
-client_data["PreferredStocks"] = stocks
+    # Extract single-row values correctly
+    client_data = {
+        "ClientID": client_df["ClientID"].iloc[0],
+        "Name": client_df["Name"].iloc[0],
+        "LastCallDate": client_df["LastCallDate"].iloc[0],
+        "Vibes": client_df["Vibes"].iloc[0],
+        "NextAppointedMeeting": client_df["NextAppointedMeeting"].iloc[0],
+        "ActualPerformanceHistory": literal_eval(client_df["ActualPerformanceHistory"].iloc[0]),
+        "ExpectedPerformanceHistory": literal_eval(client_df["ExpectedPerformanceHistory"].iloc[0]),
+        "StressLevel": client_df["StressLevel"].iloc[0],
+    }
 
-# For each stock, fetch data from both the API and web search
-stocks_info = {}
-i = 0
-for stock in stocks:
-    print(i)
-    i += 1
-    api_data = json.loads(summary(stock)["object"])
-    print("summary")
-    web_data = newspaper_parser(stock)
-    print("news")
+    # Split and clean the list of preferred stocks
+    client_data["PreferredStocks"] = [s.strip() for s in client_df["PreferredStocks"].iloc[0].split(',')]
+    stocks = [s.strip() for s in client_df["PreferredStocks"].iloc[0].split(',')]
 
-    stocks_info[stock] = {"api": api_data, "web": web_data}
+    # For each stock, fetch data from both the API and web search
+    stocks_info = {}
+    i = 0
+    for stock in stocks:
+        print(i)
+        i += 1
+        api_data = json.loads(summary(stock)["object"])
+        print("summary")
+        web_data = newspaper_parser(stock)
+        print("news")
 
-# Add the stock information to the client's data
-client_data["StocksInfo"] = stocks_info
+        stocks_info[stock] = {"api": api_data, "web": web_data}
 
-# Optionally: Combine this into a prompt string for GPT analysis
-gpt_prompt = (
-    f"Client: {client_data['Name']} (ID: {client_data['ClientID']})\n"
-    f"Last Call: {client_data['LastCallDate']}, Vibes: {client_data['Vibes']}\n"
-    f"Next Meeting: {client_data['NextAppointedMeeting']}\n"
-    f"Performance History (Actual): {client_data['ActualPerformanceHistory']}\n"
-    f"Performance History (Expected): {client_data['ExpectedPerformanceHistory']}\n"
-    f"Stress Level: {client_data['StressLevel']}\n\n"
-    f"Stocks Information:\n"
-)
-for stock, info in stocks_info.items():
-    gpt_prompt += (
-        f"- {stock}:\n"
-        f"   API Data: {info['api']}\n"
-        f"   Web Data: {info['web']}\n"
+    # Add the stock information to the client's data
+    client_data["StocksInfo"] = stocks_info
+
+    # Optionally: Combine this into a prompt string for GPT analysis
+    gpt_prompt = (
+        f"Client: {client_data['Name']} (ID: {client_data['ClientID']})\n"
+        f"Last Call: {client_data['LastCallDate']}, Vibes: {client_data['Vibes']}\n"
+        f"Next Meeting: {client_data['NextAppointedMeeting']}\n"
+        f"Performance History (Actual): {client_data['ActualPerformanceHistory']}\n"
+        f"Performance History (Expected): {client_data['ExpectedPerformanceHistory']}\n"
+        f"Stress Level: {client_data['StressLevel']}\n\n"
+        f"Stocks Information:\n"
     )
+    for stock, info in stocks_info.items():
+        gpt_prompt += (
+            f"- {stock}:\n"
+            f"   API Data: {info['api']}\n"
+            f"   Web Data: {info['web']}\n"
+        )
 
-client_data["GPT_Prompt"] = gpt_prompt
-clients_analysis.append(client_data)
+    client_data["GPT_Prompt"] = gpt_prompt
 
-# For demonstration, print the prompt for each client
-for client in clients_analysis:
-    print("-----")
-    print(client["GPT_Prompt"])
+    # Assume client_prompt is generated by your search_from_data.py
+    client_prompt = client_data["GPT_Prompt"]
 
-# Assume client_prompt is generated by your search_from_data.py
-client_prompt = client_data["GPT_Prompt"]
+    # --- Call get_actions to retrieve the parsed actions ---
+    actions_result = get_actions(client_prompt)
+    print("\nParsed Actions:")
+    print(json.dumps(actions_result, indent=2))
 
-# --- Call get_actions to retrieve the parsed actions ---
-actions_result = get_actions(client_prompt)
-print("\nParsed Actions:")
-print(json.dumps(actions_result, indent=2))
+    return actions_result
+
+
+print(init_model("John Doe"))
