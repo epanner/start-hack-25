@@ -2,7 +2,6 @@ import pandas as pd
 from ast import literal_eval
 from api_test import *
 from newAPI_newspaper3k import newspaper_parser
-import openai
 import os
 
 import requests
